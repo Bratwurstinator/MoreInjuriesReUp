@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="MedicalDeviceBase">
+    <defName>suctiondevice</defName>
+    <thingClass>ThingWithComps</thingClass>
+    <label>Airway suction device</label>
+    <description>Designed to remove blood from airways.</description>
+    <graphicData>
+      <texPath>Thing/ASD</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <resourceReadoutPriority>Middle</resourceReadoutPriority>
+    <stackLimit>1</stackLimit>
+    <tradeNeverStack>true</tradeNeverStack>
+    <useHitPoints>true</useHitPoints>
+    <statBases>
+      <Mass>0.01</Mass>
+      <MarketValue>200</MarketValue>
+      <MaxHitPoints>80</MaxHitPoints>
+    </statBases>
+    <drawGUIOverlay>false</drawGUIOverlay>
+    <costList>
+      <Steel>10</Steel>
+      <Chemfuel>20</Chemfuel>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>DrugSynthesisSpeed</workSpeedStat>
+      <workSkill>Intellectual</workSkill>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <researchPrerequisite>MedicineProduction</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>4</Crafting>
+        
+      </skillRequirements>
+    </recipeMaker>
+    <comps>
+      <li Class="CompProperties_Usable">
+        <useJob>UseItem</useJob>
+        <useLabel>Use airway suction device</useLabel>
+        <useDuration>600</useDuration>
+      </li>
+      <li Class="CompProperties_UseEffect">
+        <compClass>Oof.fixlung</compClass>
+      </li>
+      <li Class="CompProperties_UseEffect">
+        <compClass>CompUseEffect_DestroySelf</compClass>
+      </li>
+    </comps>
+  </ThingDef>
+ <JobDef>
+		<defName>ClearAirway</defName>
+		<driverClass>Oof.ClearAirway</driverClass>
+		<reportString>Clearing TargetA 's airways.</reportString>
+		<casualInterruptible>false</casualInterruptible>
+	</JobDef>
+  <HediffDef ParentName="InfectionBase">
+    <defName>ChockingOnBlood</defName>
+    <label>Choking on blood</label>
+    <description>Blood from traumatic injuries being aspirated into the airways triggers coughing and causes suffocation, potentially fatal unless treated. Can be cleared with CPR or a specialized airway suction device. \n To clear it, use an airway suction device, or right click the pawn with a doctor selected to do CPR</description>
+    <makesSickThought>false</makesSickThought>
+    <lethalSeverity>1</lethalSeverity>
+    <tendable>false</tendable>
+    <comps>
+      
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>2.0</severityPerDay>
+      </li>
+      <li Class="HediffCompProperties_Discoverable">
+        <sendLetterWhenDiscovered>false</sendLetterWhenDiscovered>
+      </li>
+      <li Class="Oof.chockingcompProperties">
+        <ABCD>900</ABCD>
+        <coughSound>Cough</coughSound>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>initial</label>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.05</offset>
+          </li>
+        </capMods>
+        <lifeThreatening>true</lifeThreatening>
+      </li>
+
+      <li>
+        <minSeverity>0.15</minSeverity>
+        <label>initial</label>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.15</offset>
+          </li>
+        </capMods>
+        <lifeThreatening>true</lifeThreatening>
+      </li>
+
+      <li>
+        <minSeverity>0.250</minSeverity>
+        <label>moderate</label>
+        <lifeThreatening>true</lifeThreatening>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.30</offset>
+          </li>
+        </capMods>
+      </li>
+
+      <li>
+        <minSeverity>0.450</minSeverity>
+        <label>moderate</label>
+        <lifeThreatening>true</lifeThreatening>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.450</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.350</offset>
+          </li>
+        </capMods>
+      </li>
+
+      <li>
+        <minSeverity>0.650</minSeverity>
+        <label>moderate</label>
+        <lifeThreatening>true</lifeThreatening>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.60</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.450</offset>
+          </li>
+        </capMods>
+      </li>
+
+      <li>
+        <minSeverity>0.80</minSeverity>
+        <label>extreme</label>
+        <lifeThreatening>true</lifeThreatening>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <setMax>0.1</setMax>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.850</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+  <SoundDef>
+    <defName>Cough</defName>  
+    <context>MapOnly</context>
+    <eventNames />  
+    <maxSimultaneous>4</maxSimultaneous>  
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Folder">
+            <clipFolderPath>Clip/shitty_cough</clipFolderPath>
+          </li>
+        </grains>      
+        <volumeRange>
+          <min>40.58823</min>        
+          <max>40.58823</max>
+        </volumeRange>
+		<pitchRange>
+          <min>0.6976015</min>        
+          <max>0.7769372</max>
+        </pitchRange>	
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <HediffDef ParentName="InfectionBase">
+    <defName>ChockingOnTourni</defName>
+    <label>Choking</label>
+    <description>your pawn is retarded.</description>
+    <makesSickThought>false</makesSickThought>
+    <lethalSeverity>1</lethalSeverity>
+    <tendable>false</tendable>
+    <comps>
+      
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>8.0</severityPerDay>
+      </li>
+      <li Class="HediffCompProperties_Discoverable">
+        <sendLetterWhenDiscovered>false</sendLetterWhenDiscovered>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>initial</label>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.15</offset>
+          </li>
+        </capMods>
+      </li>
+
+      <li>
+        <minSeverity>0.15</minSeverity>
+        <label>initial</label>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.25</offset>
+          </li>
+        </capMods>
+      </li>
+
+      <li>
+        <minSeverity>0.250</minSeverity>
+        <label>moderate</label>
+        <lifeThreatening>false</lifeThreatening>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.40</offset>
+          </li>
+        </capMods>
+      </li>
+
+      <li>
+        <minSeverity>0.450</minSeverity>
+        <label>moderate</label>
+        <lifeThreatening>false</lifeThreatening>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.550</offset>
+          </li>
+        </capMods>
+      </li>
+
+      <li>
+        <minSeverity>0.650</minSeverity>
+        <label>moderate</label>
+        <lifeThreatening>false</lifeThreatening>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.70</offset>
+          </li>
+        </capMods>
+      </li>
+
+      <li>
+        <minSeverity>0.750</minSeverity>
+        <label>extreme</label>
+        <lifeThreatening>false</lifeThreatening>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <setMax>0.01</setMax>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <setMax>0</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

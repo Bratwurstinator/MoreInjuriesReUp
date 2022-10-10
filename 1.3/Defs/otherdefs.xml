@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+   <HediffDef ParentName="DiseaseBase">
+    <defName>Concussion</defName>
+    <label>Concussion</label>
+    <description>Traumatic head injury. May affect consciousness, motor functions and vision.</description>
+    <isBad>true</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <defaultLabelColor>(140,140,0)</defaultLabelColor>
+    <comps>
+       <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>45000~120000</disappearsAfterTicks>
+      </li>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-2.0</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+     <li>
+        
+        <label>confused</label>
+        <vomitMtbDays>0.25</vomitMtbDays>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.8</setMax>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>-0.1</offset>
+          </li>
+          <li>
+            <capacity>Talking</capacity>
+            <offset>-0.2</offset>
+          </li>
+        </capMods>
+        <forgetMemoryThoughtMtbDays>5</forgetMemoryThoughtMtbDays>
+        </li>
+      <li>
+        <label>blind and confused</label>
+         <minSeverity>0.6</minSeverity>
+        <vomitMtbDays>4</vomitMtbDays>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.7</setMax>
+          </li>
+          <li>
+            <capacity>Sight</capacity>
+            <offset>-0.7</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.25</offset>
+          </li>
+        </capMods>
+       
+      </li>
+     
+    </stages>
+  </HediffDef>
+   <HediffDef>
+    <defName>adrenalinedump</defName>
+    <hediffClass>HediffWithComps</hediffClass>
+    <label>Adrenaline dumped</label>
+    <labelNoun>an adrenaline dump</labelNoun>
+    <description>Does wonders.</description>
+    <defaultLabelColor>(0,0,1)</defaultLabelColor>
+    <scenarioCanAdd>true</scenarioCanAdd>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.75</severityPerDay>
+        <showHoursToRecover>false</showHoursToRecover>
+      </li>
+    </comps>
+      <stages>
+        <li>
+        <label>Small amount</label>
+          <painFactor>0.9</painFactor>
+          <painOffset>-0.05</painOffset>
+          <capMods>
+            <li>
+              <capacity>Moving</capacity>
+              <offset>0.10</offset>
+            </li>
+          </capMods>
+        </li>
+        <li>
+        <label>slightly bigger amount</label>
+        <minSeverity>0.2</minSeverity>
+          <painFactor>0.9</painFactor>
+          <painOffset>-0.10</painOffset>
+          <capMods>
+            <li>
+              <capacity>Moving</capacity>
+              <offset>0.12</offset>
+            </li>
+          </capMods>
+        </li>
+        <li>
+         <label>medium amount</label>
+          <minSeverity>0.3</minSeverity>
+          <painFactor>0.8</painFactor>
+          <painOffset>-0.10</painOffset>
+          <capMods>
+            <li>
+              <capacity>Moving</capacity>
+              <offset>0.15</offset>
+            </li>
+          </capMods>
+         </li>
+        
+        
+        <li>
+         <label>high medium amount</label>
+          <minSeverity>0.4</minSeverity>
+          <painFactor>0.75</painFactor>
+          <painOffset>-0.10</painOffset>
+          <capMods>
+            <li>
+              <capacity>Moving</capacity>
+              <offset>0.15</offset>
+            </li>
+          </capMods>
+        </li>
+
+        <li>
+         <label>high amount</label>
+          <minSeverity>0.8</minSeverity>
+          <painFactor>0.75</painFactor>
+          <painOffset>-0.20</painOffset>
+          <capMods>
+            <li>
+              <capacity>Moving</capacity>
+              <offset>0.15</offset>
+            </li>
+          </capMods>
+        </li>
+      </stages>
+  </HediffDef>
+
+   <HediffDef ParentName="DiseaseBase">
+    <defName>LungCollapse</defName>
+    <label>Lung Collapse</label>
+    <description>A buildup of air inside the chest cavity creates pressure against the lung. Causes shortness of breath, possibly progressing to suffocation.</description>
+    <defaultLabelColor>(140,140,0)</defaultLabelColor>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>1.00</severityPerDay>
+        <showHoursToRecover>false</showHoursToRecover>
+      </li>
+    </comps>
+  
+    <stages>
+      <li>
+        <label>early</label>
+        <becomeVisible>true</becomeVisible>
+        <partEfficiencyOffset>-0.8</partEfficiencyOffset>
+      </li>
+      <li>
+        
+        <becomeVisible>true</becomeVisible>
+        <minSeverity>0.05</minSeverity>
+        <partEfficiencyOffset>-1.0</partEfficiencyOffset>
+      </li>
+      
+    </stages>
+  </HediffDef>
+  <HediffDef ParentName="InfectionBase">
+    <defName>hemorrhagicstroke</defName>
+    <label>hemorrhagic stroke.</label>
+    <description>A life-threatening condition caused by a rupture of a blood vessel in the brain.</description>
+     <tendable>true</tendable>
+    <makesSickThought>true</makesSickThought>
+    <lethalSeverity>1</lethalSeverity>
+    <defaultLabelColor>(100,0,0)</defaultLabelColor>
+    <comps>
+      <li Class="HediffCompProperties_TendDuration">
+        <baseTendDurationHours>4</baseTendDurationHours>
+        <severityPerDayTended>-1.0</severityPerDayTended>
+      </li>
+      <li Class="HediffCompProperties_Immunizable">
+        <severityPerDayNotImmune>4.0</severityPerDayNotImmune>
+        <immunityPerDaySick>0.7</immunityPerDaySick>
+        <severityPerDayImmune>-8.70</severityPerDayImmune>
+        <immunityPerDayNotSick>-8.70</immunityPerDayNotSick>
+      </li>
+      <li Class="HediffCompProperties_Discoverable">
+        <sendLetterWhenDiscovered>false</sendLetterWhenDiscovered>
+      </li>
+      <li>
+        <compClass>Oof.tendFixerComp</compClass>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        
+        <becomeVisible>true</becomeVisible>
+        <partEfficiencyOffset>-0.8</partEfficiencyOffset>
+      </li>
+      <li>
+        
+        <becomeVisible>true</becomeVisible>
+        <minSeverity>0.20</minSeverity>
+        <partEfficiencyOffset>-0.95</partEfficiencyOffset>
+      </li>
+      <li>
+        
+        <becomeVisible>true</becomeVisible>
+        <minSeverity>0.99</minSeverity>
+        <partEfficiencyOffset>-1.0</partEfficiencyOffset>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

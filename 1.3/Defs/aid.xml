@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <JobDef>
+        <defName>FirstAid</defName>
+        <driverClass>Oof.JobDriver_HardTending</driverClass>
+        <reportString>Doing first aid</reportString>
+        <casualInterruptible>false</casualInterruptible>
+	</JobDef>
+</Defs>

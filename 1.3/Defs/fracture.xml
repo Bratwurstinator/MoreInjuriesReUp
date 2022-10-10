@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="ResourceBase" Name="MedicalDeviceBase" Abstract="True">
+    <stackLimit>10</stackLimit>
+    <healthAffectsPrice>false</healthAffectsPrice>
+    <uiIconForStackCount>1</uiIconForStackCount>
+    <soundInteract>Standard_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+    </statBases>
+    <thingCategories>
+      <li>MedicalDevice</li>
+    </thingCategories>
+    <!--<orderedTakeGroup>Medicine</orderedTakeGroup>-->
+  </ThingDef>
+
+
+  <ThingCategoryDef>
+    <defName>MedicalDevice</defName>
+    <label>medical devices</label>
+    <parent>Items</parent>
+  </ThingCategoryDef>
+
+  <HediffDef ParentName="DiseaseBase">
+        <defName>Fracture</defName>
+        <label>Bone fracture</label>
+        <description>Bone fracture.</description>
+        <hediffClass>HediffWithComps</hediffClass>
+        <comps>
+        </comps>
+        <stages>
+          <li>
+            <partEfficiencyOffset>-1.0</partEfficiencyOffset>
+          </li>
+        </stages>
+        <defaultLabelColor>(119,136,153)</defaultLabelColor>
+  </HediffDef>
+
+      <HediffDef ParentName="DiseaseBase">
+        <defName>FractureHealing</defName>
+        <label>healing bone fracture</label>
+        <description>Bone fracture.</description>
+        <hediffClass>HediffWithComps</hediffClass>
+        <comps>
+          <li Class="HediffCompProperties_SeverityPerDay">
+            <severityPerDay>-0.2</severityPerDay>
+          </li>
+          <li Class="HediffCompProperties_Discoverable">
+            <sendLetterWhenDiscovered>false</sendLetterWhenDiscovered>
+          </li>
+        </comps>
+        <stages>
+          <li>
+            <minSeverity>0.10</minSeverity>
+            <label>Nearly healed</label>
+            <partEfficiencyOffset>-0.1</partEfficiencyOffset>
+          </li>
+          <li>
+            <minSeverity>0.25</minSeverity>
+            <partEfficiencyOffset>-0.2</partEfficiencyOffset>
+          </li>
+          <li>
+            <minSeverity>0.50</minSeverity>
+            <partEfficiencyOffset>-0.3</partEfficiencyOffset>
+          </li>
+          <li>
+            <minSeverity>0.75</minSeverity>
+            <partEfficiencyOffset>-0.4</partEfficiencyOffset>
+          </li>
+          <li>
+            <minSeverity>0.95</minSeverity>
+            <partEfficiencyOffset>-0.7</partEfficiencyOffset>
+          </li>
+        </stages>
+      </HediffDef>
+
+      <HediffDef ParentName="InjuryBase">
+        <defName>BoneCut</defName>
+        <label>cut (bone fragments)</label>
+        <labelNoun>a bone fragment cut</labelNoun>
+        <description>A cut whose source is a bone fragment.</description>
+        <comps>
+          <li Class="HediffCompProperties_TendDuration">
+            <labelTendedWell>bandaged</labelTendedWell>
+            <labelTendedWellInner>sutured</labelTendedWellInner>
+            <labelSolidTendedWell>set</labelSolidTendedWell>
+          </li>
+          <li Class="HediffCompProperties_Infecter">
+            <infectionChance>0.25</infectionChance>
+          </li>
+          <li Class="HediffCompProperties_GetsPermanent">
+            <permanentLabel>cut scar</permanentLabel>
+          </li>
+        </comps>
+        <injuryProps>
+          <painPerSeverity>0.0250</painPerSeverity>
+          <averagePainPerSeverityPermanent>0.00625</averagePainPerSeverityPermanent>
+          <bleedRate>0.09</bleedRate>
+          <canMerge>false</canMerge>
+          <destroyedLabel>Cut off</destroyedLabel>
+          <destroyedOutLabel>Cut out</destroyedOutLabel>
+        </injuryProps>
+      </HediffDef>
+
+
+      <ThingDef ParentName="MedicalDeviceBase">
+        <defName>splint</defName>
+        <thingClass>ThingWithComps</thingClass>
+        <label>splint</label>
+        <description>Designed to secure and hold damaged bones together, usually with fractures. Can be used in operation or when right clicking a pawn with them in inventory</description>
+        <graphicData>
+          <texPath>Thing/splint</texPath>
+          <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <resourceReadoutPriority>Middle</resourceReadoutPriority>
+        <stackLimit>500</stackLimit>
+        <tradeNeverStack>false</tradeNeverStack>
+        <useHitPoints>true</useHitPoints>
+        <statBases>
+          <Mass>0.01</Mass>
+          <MarketValue>5</MarketValue>
+          <MaxHitPoints>100</MaxHitPoints>
+        </statBases>
+        <drawGUIOverlay>true</drawGUIOverlay>
+        <stuffCategories>
+          <li>Metallic</li>
+          <li>Woody</li>
+        </stuffCategories>
+        <costStuffCount>5</costStuffCount>
+        <recipeMaker>
+          <workSpeedStat>DrugSynthesisSpeed</workSpeedStat>
+          <workSkill>Intellectual</workSkill>
+          <recipeUsers>
+            <li>TableMachining</li>
+            <li>CraftingSpot</li>
+          </recipeUsers>
+          <skillRequirements>
+            <Crafting>1</Crafting>
+          </skillRequirements>
+        </recipeMaker>
+      </ThingDef>
+
+      <RecipeDef>
+        <defName>Make_SplintBulk</defName>
+        <label>make splints x10</label>
+        <description>Make splints (10)</description>
+        <jobString>Making splints (10).</jobString>
+        <workAmount>900</workAmount>
+        <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+        <effectWorking>Cook</effectWorking>
+        <soundWorking>Recipe_CookMeal</soundWorking>
+        <allowMixingIngredients>true</allowMixingIngredients>
+        <ingredients>
+          <li>
+            <filter>
+              <stuffCategoriesToAllow>
+                <li>Metallic</li>
+                <li>Woody</li>
+              </stuffCategoriesToAllow>
+            </filter>
+            <count>50</count>
+          </li>
+        </ingredients>
+        <products>
+          <splint>10</splint>
+        </products>
+        <fixedIngredientFilter>
+          <stuffCategoriesToAllow>
+            <li>Metallic</li>
+            <li>Woody</li>
+          </stuffCategoriesToAllow>
+        </fixedIngredientFilter>
+        <recipeUsers>
+          <li>TableMachining</li>
+          <li>CraftingSpot</li>
+        </recipeUsers>
+      </RecipeDef>
+</Defs>
